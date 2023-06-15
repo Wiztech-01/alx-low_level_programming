@@ -1,0 +1,10 @@
+#!/bin/bash
+#include <stdio.h>
+/**
+ * main - A program that prints a line with puts fuction
+ */
+int main(void)
+{
+puts("\"Programing is like building a multilingual puzzle);
+return (0);
+}
