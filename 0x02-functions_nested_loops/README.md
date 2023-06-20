@@ -1,1 +1,1 @@
-a function that prints every minute of the day
+prints the 9 times table starting from 0
