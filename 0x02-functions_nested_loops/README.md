@@ -1,1 +1,1 @@
-a function that checks for alphabeic characters
+a function that prints the sign of a number
