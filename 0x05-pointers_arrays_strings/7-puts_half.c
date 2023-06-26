@@ -2,42 +2,26 @@
 
 /**
  * puts_half - prints the second half of the string
- * @str: string to be printed
+ * @str: string
+ * Return: void
  */
-
 void puts_half(char *str)
 {
-	int i = 0, len = _strlen(str);
+	int count = 0, i;
 
-	if (len % 2 == 0)
+	while (count >= 0)
 	{
-		for (i = len / 2; i < len; i++)
-			_putchar(*(str + i));
-		_putchar('\n');
+		if (str[count] == '\0')
+			break;
+		count++;
 	}
+
+	if (count % 2 == 1)
+		i = count / 2;
 	else
-	{
-		for (i = (len - 1) / 2; i < len; i++)
-			_putchar(*(str + i));
-		_putchar('\n');
-	}
-}
+		i = (count - 1) / 2;
 
-
-/**
- * _strlen - returns the length of a string
- * @s: string to be checked
- *
- * Return: the length of the string
- */
-
-int _strlen(char *s)
-{
-	unsigned int len = 0;
-	int i;
-
-	for (i = 0; *(s + i) != '\0'; i++)
-		len += sizeof(char);
-
-	return (len);
+	for (i++; i < count; i++)
+		_putchar(str[i]);
+	_putchar('\n');
 }
