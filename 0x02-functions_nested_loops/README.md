@@ -1,1 +1,1 @@
-a program that prints the first 50 Fibonacci numbers, starting with 1 & 2, followedby a new line
+0x02. C - Functions, nested loops
