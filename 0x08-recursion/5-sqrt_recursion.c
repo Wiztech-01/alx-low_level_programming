@@ -12,7 +12,7 @@ int sqr_root(int base, int root)
 {
 	return (
 			(root * root == base) ? root :
-			(root == base / 2) ? -1 i:
+			(root == base / 2) ? -1 i :
 			sqr_root(base, root + 1)
 		);
 }
