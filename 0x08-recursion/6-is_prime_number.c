@@ -11,13 +11,14 @@
 int divisor(int base, int div)
 {
 	if (base % div == 0)
-		return (0)
+		return (0);
 
 	if (div == base / 2)
 		return (1);
 
 	return (divisor(base, div + 1));
 }
+
 
 /**
  * is_prime_number - checks if a number is a prime number
