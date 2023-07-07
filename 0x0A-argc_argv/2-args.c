@@ -7,7 +7,7 @@
  * @argv: array containing cmd line arguments
  * Return: 0 ifsuccess
  */
-int main(argc, char *argv[])
+int main(argc) char *argv[]))
 {
 	if (argc != 3)
 	{
