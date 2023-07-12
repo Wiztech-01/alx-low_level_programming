@@ -1,66 +1,44 @@
-#include <stdio.h>
 #include "main.h"
 #include <stdlib.h>
 
 /**
- * _strlen - len of a str
- * @s: input char
- * Return: len of a str
- */
-
-int _strlen(char *s)
-{
-	int l = 0;
-
-	while (*s != '\0')
-	{
-		s++;
-		l++;
-	}
-	return (l);
-}
-
-/**
- * argstostr - concat
- * @ac: count
- * @av: vector
- * Return: string
+ * argstostr - concatenates all the arguments into a string
+ * @ac: number of arguments
+ * @av: array of arguments
+ *
+ * Return: a pointer to the newly allocated space in memory
  */
 
 char *argstostr(int ac, char **av)
 {
-	int i, j, k;
-	int len, R = 0;
-	char *p;
+	char *str;
+	int arg, byte, i, n = ac;
 
-	if (!ac || !av)
-	{
+	if (ac == 0 || av == NULL)
 		return (NULL);
-	}
-	R = 0;
 
-	for (i = 0; i < ac; i++)
+	for (arg = 0; arg < ac; arg++)
 	{
-		len = _strlen(av[i]) + 1;
-		R += len;
+		for (byte = 0; av[arg][byte]; byte++)
+			n++;
 	}
-	p = malloc(sizeof(char) * R + 1);
 
-	if (!p)
-	{
+	str = malloc(n + 1);
+
+	if (str == NULL)
 		return (NULL);
-	}
 
-	for (i = 0; i < ac; i++)
+	i = 0;
+
+	for (arg = 0; arg < ac; arg++)
 	{
-		len = _strlen(av[i]);
+		for (byte = 0; av[arg][byte]; byte++)
+			str[i++] = av[arg][byte];
 
-		for (j = 0; j < len; j++, k++)
-		{
-			p[k] = av[i][j];
-		}
-		p[k++] = '\n';
+		str[i++] = '\n';
 	}
-	p[k] = '\0';
-	return (p);
+
+	str[n] = '\0';
+
+	return (str);
 }
