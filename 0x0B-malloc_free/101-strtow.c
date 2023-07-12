@@ -1,86 +1,106 @@
 #include <stdlib.h>
+#include "main.h"
+
+int _len(char *str);
+int argc(char *str);
+char **strtow(char *str);
 
 /**
- * strtow - char
- * @str: pointer to string
- * Return: char
+ * _len - returns the length of a string
+ * @str: string to be checked
+ *
+ * Return: the length of the string
+ */
+
+int _len(char *str)
+{
+	int i = 0, length = 0;
+
+	while (str[i] != '\0' && str[i] != ' ')
+	{
+		length++;
+		i++;
+	}
+
+	return (length);
+}
+
+/**
+ * argc - count the number of arguments passed
+ * @str: arguments passed
+ *
+ * Return: number of arguments
+ */
+
+int argc(char *str)
+{
+	int i = 0, args = 0, len = 0;
+
+	for (i = 0; str[i] != '\0'; i++)
+		len++;
+
+	for (i = 0; i < len; i++)
+	{
+		if (str[i] != ' ')
+		{
+			args++;
+			i += _len(str + i);
+		}
+	}
+
+	return (args);
+}
+
+/**
+ * strtow - splits a string into words
+ * @str: string to be split
+ *
+ * Return: NULL if str == NULL or str == "", otherwise
+ *		a pointer to the newly allocated space in memory
  */
 
 char **strtow(char *str)
 {
-	int i = 0, j = 0, k = 0;
-	int len = 0, count = 0;
-	char **f, *col;
+	char **string;
+	int i = 0, words, chr, l, w;
 
-	if (!str || !*str)
-	{
+	if (str == NULL || str[0] == '\0')
 		return (NULL);
-	}
 
-	while (*(str + i))
-	{
-		if (*(str + i) != ' ')
-		{
-			if (*(str + i + 1) == ' ' || *(str + i + 1) == 0)
-			{
-				count += 1;
-			}
-		}
-		i++;
-	}
+	words = argc(str);
 
-	if (count == 0)
-	{
+
+	if (words == 0)
 		return (NULL);
-	}
-	count += 1;
-	f = malloc(sizeof(char *) * count);
 
-	if (!f)
-	{
+	string = malloc(sizeof(char *) * (words + 1));
+
+	if (string == NULL)
 		return (NULL);
-	}
-	i = 0;
 
-	while (*str)
+	for (w = 0; w < words; w++)
 	{
-		while (*str == ' ' && *str)
-		{
-			str++;
-		}
-		len = 0;
+		while (str[i] == ' ')
+			i++;
 
-		while (*(str + len) != ' ' && *(str + len))
-		{
-			len += 1;
-		}
-		len += 1;
-		col = malloc(sizeof(char) * len);
+		chr = _len(str + i);
+		string[w] = malloc(chr + 1);
 
-		if (!col)
+		if (string[w] == NULL)
 		{
-			for (k = j - 1; k >= 0; k--)
-			{
-				free(f[k]);
-			}
-			free(f);
+			for (; w >= 0; w--)
+				free(string[w]);
+			free(string);
 			return (NULL);
 		}
 
-		for (k = 0; k < (len - 1);  k++)
-		{
-			*(col + k) = *(str++);
-		}
-		*(col + k) = '\0';
-		*(f + j) = col;
+		for (l = 0; l < chr; l++)
+			string[w][l] = str[i++];
 
-		if (j < (count - 1))
-		{
-			j++;
-		}
+		string[w][l] = '\0';
 	}
-	*(f + j) = NULL;
-	return (f);
+
+	string[w] = NULL;
+
+	return (string);
 }
-
-
