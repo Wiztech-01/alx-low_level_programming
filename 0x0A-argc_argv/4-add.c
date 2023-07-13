@@ -3,16 +3,18 @@
 #include <ctype.h>
 
 /**
- * main - adds +ve numbers
- * @argc: number of cmd argument
- * @argv: array containng the cmd argument
- * Return : 0
+ * main - adds positive integers and prints the result
+ * @argc: number of arguments
+ * @argv: array of arguments
+ *
+ * Return: 1 on less that 2 args, 0 otherwise
  */
-int main(int argc, char * argv[])
-{
-	int i, j, add = 0;
 
-	for (i = 1; i < argc; i++)	
+int main(int argc, char *argv[])
+{
+	int i = 0, j = 0, sum = 0;
+
+	for (i = 1; i < argc; i++)
 	{
 		for (j = 0; argv[i][j] != '\0'; j++)
 		{
@@ -22,8 +24,9 @@ int main(int argc, char * argv[])
 				return (1);
 			}
 		}
-		add += atoi(argv[i]);
+		sum += atoi(argv[i]);
 	}
-	printf("%d\n", add);
+	printf("%d\n", sum);
+
 	return (0);
 }
