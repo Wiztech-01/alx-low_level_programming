@@ -1,61 +1,92 @@
-#include "main.h"
-#include <stdio.h>
+#include "holberton.h"
+
 
 /**
- *main - copies the content of a file to another file.
- *@argc: Name of the file to be copied
- *@argv: Contents of the file being copied
+ * read_error - print error message
+ * @file: file read from
  *
- *Return: 0 if successful
+ * Return: void
  */
-
-int main(int argc, char *argv[])
+void read_error(const char *file)
 {
-	int fd_from, fd_to, nread;
-	char buffer[1024];
+	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file);
+	exit(98);
+}
 
-	if (argc != 2)
-	{
-		dprintf(2, "Usage: cp file_from file_to\n");
-		exit(97);
-	}
+/**
+ * close_error - print error message
+ * @fd: file descriptor
+ *
+ * Return: void
+ */
+void close_error(int fd)
+{
+	dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+	exit(100);
+}
 
-	fd_from = open(argv[1], O_RDONLY);
-	if (fd_from == -1)
-	{
-		dprintf(2, "Error: Can't read from file %s\n", argv[1]);
-		exit(98);
-	}
+/**
+ * cp - copy contents of a file to another file
+ * @file_from: file to copy from
+ * @file_to: file to copy to
+ *
+ * Return: no return value (void)
+ */
+void cp(const char *file_from, const char *file_to)
+{
+	int fd, fd2, chars_printed, chars_read;
+	char *buf;
 
-	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (fd_to == -1)
+	if (file_from == NULL || file_to == NULL)
+		read_error(file_from);
+	fd = open(file_from, O_RDONLY);
+	if (fd < 0)
+		read_error(file_from);
+	buf = malloc(sizeof(char) * 1024);
+	if (buf == NULL)
+		read_error(file_from);
+	fd2 = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (fd2 < 0)
 	{
-		dprintf(2, "Error: Can't write to file %s\n", argv[2]);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 		exit(99);
 	}
-
-	while ((nread = read(fd_from, buffer, sizeof(buffer))) > 0)
+	while ((chars_printed = read(fd, buf, 1024)) > 0)
 	{
-		write(fd_to, buffer, nread);
+		buf[chars_printed] = '\0';
+		chars_read = write(fd2, buf, chars_printed);
+		if (chars_read != chars_printed)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+			exit(99);
+		}
 	}
-
-	if (nread == -1)
+	free(buf);
+	if (chars_printed < 0)
 	{
-		dprintf(2, "Error: Can't read from file %s\n", argv[1]);
-		exit(98);
+		close(fd);
+		read_error(file_from);
 	}
+	if (close(fd) < 0)
+		close_error(fd);
+	if (close(fd2) < 0)
+		close_error(fd2);
+}
 
-	if (close(fd_from) == -1)
+/**
+ * main - copy contents from one file to another
+ * @argc: number of arguments passed to main
+ * @argv: array of pointers to strings that are the arguments to main
+ *
+ * Return: Always 0
+ */
+int main(int argc, char *argv[])
+{
+	if (argc != 3)
 	{
-		dprintf(2, "Error: Can't close fd %d\n", fd_from);
-		exit(100);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
-
-	if (close(fd_to) == -1)
-	{
-		dprintf(2, "Error: Can't close fd %d\n", fd_to);
-		exit(100);
-	}
-
+	cp(argv[1], argv[2]);
 	return (0);
 }
