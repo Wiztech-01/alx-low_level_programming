@@ -1,61 +1,52 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
- *main - copies the content of a file to another file.
- *@argc: Name of the file to be copied
- *@argv: Contents of the file being copied
+ * main - copies the content of a file to another file
+ * @argc: number of arguments passed to the program
+ * @argv: array of arguments
  *
- *Return: 0 if successful
+ * Return: Always 0 (Success)
  */
-
 int main(int argc, char *argv[])
 {
-	int fd_from, fd_to, nread;
-	char buffer[1024];
+	int fd_r, fd_w, r, a, b;
+	char buf[BUFSIZ];
 
-	if (argc != 2)
+	if (argc != 3)
 	{
-		dprintf(2, "Usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-
-	fd_from = open(argv[1], O_RDONLY);
-	if (fd_from == -1)
+	fd_r = open(argv[1], O_RDONLY);
+	if (fd_r < 0)
 	{
-		dprintf(2, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
-
-	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (fd_to == -1)
+	fd_w = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	while ((r = read(fd_r, buf, BUFSIZ)) > 0)
 	{
-		dprintf(2, "Error: Can't write to file %s\n", argv[2]);
-		exit(99);
+		if (fd_w < 0 || write(fd_w, buf, r) != r)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			close(fd_r);
+			exit(99);
+		}
 	}
-
-	while ((nread = read(fd_from, buffer, sizeof(buffer))) > 0)
+	if (r < 0)
 	{
-		write(fd_to, buffer, nread);
-	}
-
-	if (nread == -1)
-	{
-		dprintf(2, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
-
-	if (close(fd_from) == -1)
+	a = close(fd_r);
+	b = close(fd_w);
+	if (a < 0 || b < 0)
 	{
-		dprintf(2, "Error: Can't close fd %d\n", fd_from);
+		if (a < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_r);
+		if (b < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_w);
 		exit(100);
 	}
-
-	if (close(fd_to) == -1)
-	{
-		dprintf(2, "Error: Can't close fd %d\n", fd_to);
-		exit(100);
-	}
-
 	return (0);
 }
