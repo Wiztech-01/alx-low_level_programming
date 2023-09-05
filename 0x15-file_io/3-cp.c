@@ -1,51 +1,110 @@
-#include "holberton.h"
+#include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
 
+#define BUFFER_SIZE 1024
 
 /**
-* main - copies contents of one file to other file
-* @ac: number of arguments
-* @av: argument vector
-*
-* Return: 0 on success
-*/
-int main(int ac, char **av)
+ * open_file - opens a file
+ * @filename: name of the file
+ * @flags: flags of the file
+ * @mode: mode of the file
+ *
+ * Return: file descriptor
+ */
+
+int open_file(const char *filename, int flags, mode_t mode)
 {
-	int fd_from, fd_to, read_from;
-	char buf[1024];
+	int fd;
 
+	fd = open(filename, flags, mode);
+	return (fd);
+}
 
-	if (ac != 3)
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
+/**
+ * close_file - closes a file
+ * @fd: file descriptor
+ * Return: 0 on success, -1 on failure
+ */
 
+int close_file(int fd)
+{
+	int res;
 
-	fd_from = open(av[1], O_RDONLY);
-	if (fd_from == -1)
-		dprintf(STDERR_FILENO, "Error: Can't read from %s\n", av[1]), exit(98);
+	res = close(fd);
+	return (res);
+}
 
+/**
+ * copy_file - copies a file
+ * @src: source file
+ * @dest: destination file
+ * Return: 0 on success, -1 on failure
+ */
 
-	fd_to = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+int copy_file(const char *src, const char *dest)
+{
+	int fd_src, fd_dest;
+	ssize_t res;
+	char buffer[BUFFER_SIZE];
 
-
-	while ((read_from = read(fd_from, buf, 1024)) > 0)
+	fd_src = open_file(src, O_RDONLY, 0);
+	if (fd_src == -1)
 	{
-		if (fd_to < 0 || (write(fd_to, buf, read_from) != read_from))
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]), exit(99);
+		dprintf(STDERR_FILENO, "Error: Can't read from %s\n", src);
+		exit(98);
 	}
-
-
-	if (read_from == -1)
-		dprintf(STDERR_FILENO, "Error; Can't read from %s\n", av[1]), exit(98);
-
-
-	if ((close(fd_from)) == -1)
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from), exit(100);
-
-
-	if ((close(fd_to)) == -1)
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to), exit(100);
-
-
+	fd_dest = open_file(dest, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (fd_dest == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", dest);
+		exit(99);
+	}
+	while ((res = read(fd_src, buffer, BUFFER_SIZE)) > 0)
+	{
+		if (write(fd_dest, buffer, res) == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", dest);
+			exit(99);
+		}
+	}
+	if (res == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
+		exit(98);
+	}
+	if (close_file(fd_src) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_src);
+		exit(100);
+	}
+	if (close_file(fd_dest) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_dest);
+		exit(100);
+	}
 	return (0);
 }
 
+/**
+ * main - check the code
+ * @argc: number of arguments
+ * @argv: array of arguments
+ *
+ * Return: Always 0.
+ */
+
+int main(int argc, char *argv[])
+{
+	int result;
+
+	if (argc != 3)
+	{
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
+	}
+
+	result = copy_file(argv[1], argv[2]);
+
+	return (result);
+}
