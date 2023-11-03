@@ -15,3 +15,5 @@
 - [All about hash tables](https://intranet.alxswe.com/rltoken/3RwwAqmpGJpMiBa7BE9fAQ)
 - [why hash tables and not arrays](https://intranet.alxswe.com/rltoken/OgO7uga3PIaCTMtTzYCY3g)
 - [ PHP Internals Book: HashTable](https://intranet.alxswe.com/rltoken/SIdpN9PE_9aYBCHUGPX-fw)
+- [how dictionaries are implemented in Python 2.7](https://intranet.alxswe.com/rltoken/hKhDFfKKcxdM9U8GZVPOHQ)
+- [Read more here](https://intranet.alxswe.com/rltoken/6wE80OFPwL-As1zGh2iMFg)
