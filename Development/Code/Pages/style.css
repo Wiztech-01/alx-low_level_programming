@@ -1,0 +1,76 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+}
+    
+header{
+    background-color: lightgrey;
+    text-align: center;
+    padding: 25px;
+}
+
+.navbar{
+    background-color: hsl(0, 0%, 15%);
+    height: 50px;
+    
+}
+
+aside{
+    width: 20%;
+    float: left;
+    padding: 10px;
+    /* Keep in mind the % not to exceed 100% */
+}
+
+section{
+    width: 40%;
+    float: left;
+    padding: 10px;
+}
+
+article{
+    width: 40%;
+    float: left;
+    padding: 10px;
+}
+
+footer{
+    display: block;
+    clear: both;
+    background-color: rgb(61, 59, 59);
+    text-align: center;
+    padding: 25px;
+}
+/* the responsive css: allows user to view the website from either desktop or mobile devices */
+@media screen and (max-width: 600px){
+    aside, section, article{
+        width: 100;
+    }
+}
+
+/* Image gallery on webpage */
+.gallery{
+    display: inline-block;
+    border: 1px solid grey;
+    margin: 5px;
+    width: 200px;
+}
+
+.gallery .description{
+    padding: 10px;
+    text-align: center;
+}
+
+.gallery:hover{
+    border: 1px solid hsl(0, 0%, 20%);
+}
+
+.gallery img{
+    width: 100%;
+    height: auto;
+}
+
+/* icons */

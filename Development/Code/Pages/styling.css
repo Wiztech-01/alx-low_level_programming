@@ -1,0 +1,151 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    /* background-repeat: no-repeat; THIS HELPS NOT TO MAKE THE IMAGE REPEAT ITSELF WHEN IF IMAGE IS TOO SMALL TO FIT */
+    background-image: url(choco.cookies.png);
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+/* Background image in CSS */
+}
+
+/* All about pseudo-classes */
+a:link{
+    color: blueviolet ;
+}
+a:hover{
+    color: maroon;
+    font-size: 1.1em;
+}
+
+a:active{
+    font-size: 1.1em;
+    color:darkblue ;
+}
+
+a:visited{
+    color: aqua;
+}
+
+#container{
+    border: 2px solid;
+}
+#container ~ p{
+    background-color: yellow;
+}
+button:hover{
+    font-size: 1.1em;
+    background-color: orange;
+
+}
+button:active{
+    font-size: 1.1em;
+    background-color: rgb(39, 27, 6);
+
+}
+
+li:hover{
+    background-color: yellow;
+}
+li:not(:hover){
+    background-color: grey;
+}
+li:nth-child(+4){
+    background-color: magenta;
+}
+
+.pagination{
+    text-align: center;
+}
+
+.pagination a{
+    color: black;
+    text-decoration: none;
+    padding: 8px 15px;
+    display: inline-block;
+}
+
+.pagination a.active{
+    background-color: rgb(4, 120, 221);
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.pagination a:hover:not(.active){
+    background-color: greenyellow;
+    padding: 5px;
+}
+
+/* drop-down menu */
+.dropdown{
+    display: inline-block;
+}
+.dropdown button{
+    background-color: rgb(15, 19, 10);
+    color:aqua;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown a{
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+
+}
+.dropdown .content{
+    display: none;
+    position: absolute;
+    background-color: hsl(0, 65%, 58%);
+    min-width: 100px;
+    box-shadow: 2px 2px 5px hsla(0,  0%,  0%, 0.8);
+    
+}
+.dropdown:hover .content{
+    display: block;
+}
+.dropdown:hover button{
+    background-color: hsl(0, 0%, 70%);
+}
+.dropdown a:hover{
+    background-color: hsl(0, 0%, 90%);
+}
+
+h1{
+    text-align: center;
+}
+
+.navbar ul{
+    list-style-type: none;
+    background-color: hsl(0, 0%, 25%);
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+main{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.navbar a{
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+
+.navbar a:hover{
+    background-color: hsl(0, 0%, 10%);
+}
+
+.navbar li{
+    float: left;
+}
+
