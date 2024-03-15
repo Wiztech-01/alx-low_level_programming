@@ -1,0 +1,135 @@
+/* Margins: Area outside of an element. top, bottom, left, right */
+
+body{
+    margin: 0px;
+    border: 3px solid;
+    display: flow-root;
+    /* anything  that is floating stays in the container*/
+}
+
+
+.box{
+    border: 5px solid;
+    font-size: 5em;
+    width: 250px;
+    height: 250px;
+}
+
+#box1{
+    background-color: mediumseagreen;
+    margin-bottom: 10px;
+    /* margin: auto; Stays at the centre */
+}
+
+#box2{
+    background-color:lightgreen;
+    margin-bottom: 10px;
+}
+
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    border-style: solid;
+    /* Borders include: solid, dashed, dotted, double, groove, ridge, inset, outset, none(if it has a border naturally) */
+    border-width: 4px;
+    border-color: magenta;
+    border-radius: 100px;
+   
+    /* Shadows: set a div on html file and name it. Horizontal & vertical offset, blur px, color px, add another shadow within the shadow itself, change color to make it distinct */
+    /* Each shadow can be comma (,) separated */
+    text-shadow: 3px 3px 5px red, 3px 3px 5px orange;
+}
+
+p{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    /* units of sizing font: px, em */
+    font-weight: bold;
+    font-style: italic;
+ /* border: 3px solid magenta - this is a short-hand for border */
+    border-radius:10px ;
+    border-bottom: 3px solid purple;
+    border-top: 3px dotted mediumorchid;
+    border-left: 3px dashed peachpuff;
+    border-right: 3px dashed pink;
+}
+/* fonts.google.com  provides a variety of fonts to choose from */
+
+#box1{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(234, 234, 234);
+    box-shadow: 3px 3px 5px;
+    /* Box Shadows & box-sizing property = (bord
+    er-box or etc */
+    /* ~ used to apply styling to all elements */
+}
+
+#img1{
+    /* you can float left or right to place the image */
+    float: left;
+    margin-right: 10px;
+}
+#img2{
+    float: right;
+    margin-left: 10px;
+}
+
+/* div{
+    border: 2px solid;
+    height: 75px;
+    overflow: scroll;
+    /* overflow includes hidden, auto, visible, scroll & clip(used in line with (overflow-clip-marggin: 13px)
+} */
+
+div{
+    background-color: palevioletred;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    display: inline-block;
+
+}
+span{
+    background: lightseagreen;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    /* display = can be none, inline or block */
+    /* height: can be auto or fixed height; width too; border blocks two divs from staying next to each other. */
+    /* div = are block level elements */
+}
+
+.container{
+    background-color: rgba(32, 31, 31, 0.418);
+    height: 100vh;
+}
+
+.boxy{
+    background-color: white;
+    border: 2px solid;
+    padding: 25px;
+    height:auto; 
+    width: 50%;
+    float:left;
+    text-align: center;
+    max-height: 50%;
+    /* hitches on the box classes */
+}
+
+#box3{
+    width: 200px;
+    height: 200px;
+    background-color: rgb(0, 238, 255);
+    position: rsticky;
+    top: 50px;
+    /* left:50%; */
+}
+
+#box4{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(255, 51, 0);
+    position: static;
+    top: 50%;
+    left:50%;
+}

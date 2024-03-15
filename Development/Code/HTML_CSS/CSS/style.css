@@ -1,0 +1,21 @@
+body{
+    background-color: slategrey;
+}
+h1{
+    color: olive;
+}
+/* #p1{
+    color:red;
+}
+#p2{
+    color:turquoise;
+} */
+/* type (dot) when styling a class and (#) when styling id */
+.odd{
+    color: rgb(rgb(151, 229, 243));
+}
+.even{
+    color: #303030;
+}
+
+/* Use a colorpicker. Color properties use names, i.e Red; values, i.e rgb(255,0,0); Hexadecimal values, i.e #f0000; hsl(0 degrees, 100%, 50%) */
